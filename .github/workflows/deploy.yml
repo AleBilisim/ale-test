@@ -19,6 +19,9 @@ jobs:
           aws-secret-access-key: ygNCP0ILcRoLxvdqz5cVJ3j+4J5Y5NvNmDCnl0X6
           aws-region: eu-central-1
 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Generate deployment package
         run: |
           chmod +x /home/ubuntu/update-test.sh  # Betik dosyasına çalıştırma izni ver
