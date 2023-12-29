@@ -17,4 +17,4 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          mkdir /home/subdir1
+          sudo mkdir /home/subdir1
