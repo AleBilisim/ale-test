@@ -1,24 +1,21 @@
-name: Run Update Test Script
+name: Manual workflow
 
 on:
   workflow_dispatch:  # Manuel tetikleme
 
 jobs:
-  run-update-test:
+  greet:
     runs-on: ubuntu-latest
 
     steps:
-      - - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: AKIAUP3XHP2A62VQBRUN
-            aws-secret-access-key: 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
-            aws-region: eu-central-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAUP3XHP2A62VQBRUN
+          aws-secret-access-key: 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
+          aws-region: eu-central-1
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Run Update Test Script
+      - name: Create Database
         run: |
-          chmod +x /home/ubuntu/update-test.sh  # Betik dosyasına çalıştırma izni ver
-          /home/ubuntu/update-test.sh
+          mkdir -p /home/ubuntu/xxx
+          touch /home/ubuntu/xxx/database.txt
