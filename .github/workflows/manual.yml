@@ -21,10 +21,14 @@ jobs:
           aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
           aws-secret-access-key: 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
           aws-region: eu-central-1
+
       # Runs a single command using the runners shell
       - name: Send xxxx
         uses: appleboy/scp-action@master
         with:
+          aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
+          aws-secret-access-key: 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
+          aws-region: eu-central-1
           source: "."
           target: "/var/www/ale-test/update.sh"
 
