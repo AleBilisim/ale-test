@@ -26,7 +26,7 @@ jobs:
         run: echo "Hello ${{ inputs.name }}"
 
       - name: Install Composer Dependencies
-        working-directory: /home/ubuntu
+        working-directory: home/ubuntu
         run: touch testxc.txt
 
       - name: Create
