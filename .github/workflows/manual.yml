@@ -17,6 +17,5 @@ jobs:
 
       - name: Create Database
         run: |
-          
           mkdir -p /home/ubuntu/xxx
           touch /home/ubuntu/xxx/database.txt
