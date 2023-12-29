@@ -58,6 +58,6 @@ jobs:
           aws_secret_key: ygNCP0ILcRoLxvdqz5cVJ3j+4J5Y5NvNmDCnl0X6
           application_name: ale-test
           environment_name: ale-test-env
-#          deployment_package: deploy.zip
+          deployment_package: deploy.zip
           version_label: ${{ steps.version.outputs.new_tag }}
           region: eu-central-1
