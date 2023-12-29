@@ -1,0 +1,101 @@
+name: Deploy PsikologOfisi Web Server STAGING
+
+on:
+  push:
+    branches:
+      - master
+
+permissions: write-all
+
+jobs:
+  run-tests-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      # Fix up github workspace issue
+      - name: Fix up github workspace issue
+        run: git config --global --add safe.directory /github/workspace
+
+      # Bump latest release version by the default_bump and push the new tag
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        id: version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          RELEASE_BRANCHES: master
+          INITIAL_VERSION: 1.3.0
+
+      # Echo new version tag if everything is okay
+      - name: Echo New Version Tag
+        run: echo ${{ steps.version.outputs.new_tag }}
+
+      # Configure AWS for ECR login. Getting secrets from Github Secrets
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      # Install Node
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Install NPM Dependecies
+      - run: npm install
+
+      # Make .env File
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_DB_NAME: ${{ secrets.DB_NAME }}
+          envkey_DB_USER: ${{ secrets.DB_USER }}
+          envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          envkey_DB_HOST: ${{ secrets.DB_HOST }}
+          envkey_JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+          envkey_MAX_DATA: ${{ secrets.MAX_DATA }}
+          envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          envkey_AWS_SECR: ${{ secrets.AWS_SECR }}
+          envkey_AWS_SES_EMAIL: ${{ secrets.AWS_SES_EMAIL }}
+          envkey_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+          envkey_RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY }}
+          envkey_RECAPTCHA_PROJECT_ID: ${{ secrets.RECAPTCHA_PROJECT_ID }}
+          envkey_AWS_ACCESS_KEY_ID_S3: ${{ secrets.AWS_ACCESS_KEY_ID_S3 }}
+          envkey_AWS_SECRET_ACCESS_KEY_S3: ${{ secrets.AWS_SECRET_ACCESS_KEY_S3 }}
+          envkey_AWS_REGION: ${{ secrets.AWS_REGION }}
+          envkey_PAYMENT_API_KEY: ${{ secrets.PAYMENT_API_KEY }}
+          envkey_PAYMENT_SECRET_KEY: ${{ secrets.PAYMENT_SECRET_KEY }}
+          envkey_URI: ${{ secrets.URI }}
+          envkey_CLIENT_SIDE_URL: ${{ secrets.CLIENT_SIDE_URL }}
+          envkey_FREE_TEST_WEBHOOK_URL: ${{ secrets.FREE_TEST_WEBHOOK_URL }}
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
+
+      # Generate deployment package for EB
+      - name: Generate deployment package
+        env:
+          IMAGE_TAG: ${{ steps.version.outputs.new_tag }}
+        run: |
+          zip -r deploy.zip .
+
+      # Deploy to EB
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v10
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: psikologofisi-web-api-staging
+          environment_name: psikologofisi-web-api-staging-env
+          deployment_package: deploy.zip
+          version_label: ${{ steps.version.outputs.new_tag }}
+          region: eu-central-1
