@@ -17,6 +17,4 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          cd
-          cd /var/www/ale-test
-          git pull origin main
+          mkdir /home/subdir1
