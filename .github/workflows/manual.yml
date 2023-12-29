@@ -31,7 +31,11 @@ jobs:
           aws-region: eu-central-1
           source: "."
           target: "/var/www/ale-test/update.sh"
-
+          script: |
+            cd var/www/ale-test
+            git checkout .
+            git pull
+            mkdir abc
 #      - name: Checkout
 #        uses: actions/checkout@v2
 #
