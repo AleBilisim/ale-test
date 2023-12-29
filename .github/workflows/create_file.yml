@@ -1,0 +1,38 @@
+name: Create file
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
+          aws-secret-access-key: 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
+          aws-region: eu-central-1
+
+      - name: Create file
+        run: |
+          printf "Hello\nWorld\n" > hw.txt
+
+      - name: Create file
+        run: |
+          echo First        > other.txt
+          echo Second Line >> other.txt
+          echo Third       >> other.txt
+
+
+      - name: Show file content
+        run: |
+          pwd
+          ls -la
+          cat hw.txt
+          cat other.txt
+
+
+      - name: Create directory and create file in homedir
+        run: |
+          ls -la ~/
+          mkdir ~/home/ubuntu/xxx
