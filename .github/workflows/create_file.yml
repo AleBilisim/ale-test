@@ -1,19 +1,26 @@
-name: Create file
+name: Deploy
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
-  build:
+  Deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-latest
+
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
-          aws-secret-access-key: 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
-          aws-region: eu-central-1
-          script: |
-            cd -p ~/var/www/ale-test
-            ls -la
-            git pull origin master
-            git status
+      - uses: actions/checkout@v2
+      - name: Build & Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{secrets.SSH_HOST}}
+          USER_NAME: ${{secrets.USER_NAME}}
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+              # Now we have got the access of EC2 and we will start the deploy .
+              cd /home/ubuntu &&
+              mkdir test1
+              '
