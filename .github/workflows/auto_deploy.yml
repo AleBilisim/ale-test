@@ -20,6 +20,10 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-              cd /var/www/ale-test &&
-              sudo git pull origin main
+              if [ ! -d /var/www/ale-test ]; then 
+                mkdir -p /var/www/ale-test;
+              else
+                cd /var/www/ale-test &&
+                sudo git pull origin main
+              fi
           '
