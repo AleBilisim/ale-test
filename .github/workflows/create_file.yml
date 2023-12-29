@@ -13,6 +13,7 @@ jobs:
           aws-secret-access-key: ygNCP0ILcRoLxvdqz5cVJ3j+4J5Y5NvNmDCnl0X6
           aws-region: eu-central-1
           script: |
-            cd ~/var/www/ale-test
+            cd -p ~/var/www/ale-test
+            ls -la
             git pull origin master
             git status
