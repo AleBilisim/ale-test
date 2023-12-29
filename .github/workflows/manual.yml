@@ -16,4 +16,4 @@ jobs:
       - name: Generate deployment package
         run: |
           cd /home/ubuntu
-          touch testx.txt
+          touch testxc.txt
