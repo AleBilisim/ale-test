@@ -21,6 +21,7 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
               if [ ! -d /var/www/ale-test ]; then 
+                cd /var/www &&
                 sudo git clone https://serdardurbaris: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@github.com/AleBilisim/ale-test.git
               else
                 cd /var/www/ale-test &&
