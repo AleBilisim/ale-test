@@ -19,4 +19,5 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          sudo su & mkdir /var/www/ale-test/testx
+          sudo su
+          mkdir /var/www/ale-test/testx
