@@ -23,8 +23,8 @@ jobs:
           aws-region: eu-central-1
 
       # Runs a single command using the runners shell
-      - name: Send xxxx
-        uses: appleboy/scp-action@master
+      - name: Send aaaaaa
+        uses: actions/checkout@v2
         with:
           source: "."
           target: "/var/www/ale-test/update.sh"
