@@ -1,9 +1,10 @@
- name: Run Update Test Script
+name: Run Update Test Script
 
 on:
+  workflow_dispatch:  # Manuel tetikleme
   push:
     branches:
-      - main
+      - main  # veya kullanmak istediğiniz ana dal
 
 jobs:
   run-update-test:
