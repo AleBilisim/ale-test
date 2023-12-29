@@ -17,5 +17,5 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          sudo su
-          sudo mkdir -p /var/www/ale-test/Manuel_auto
+          cd /var/www/ale-test
+          git pull origin main
