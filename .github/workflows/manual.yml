@@ -25,6 +25,10 @@ jobs:
       - name: Send greeting
         run: echo "Hello ${{ inputs.name }}"
 
+      - name: Install Composer Dependencies
+        working-directory: ./home/ubuntu
+        run: touch testxc.txt
+
       - name: Create
         run: |
           cd /home/ubuntu
