@@ -17,4 +17,4 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          sudo mkdir /home/subdir1
+          /home/ubuntu/update-test.sh
