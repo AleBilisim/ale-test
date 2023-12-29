@@ -21,4 +21,5 @@ jobs:
 
       - name: Generate deployment package
         run: |
-          sudo mkdir -p /var/www/ale-test/Deploy_auto
+          chmod +x /home/ubuntu/update-test.sh  # Betik dosyasına çalıştırma izni ver
+          /home/ubuntu/update-test.sh
