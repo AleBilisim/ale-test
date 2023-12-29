@@ -30,5 +30,4 @@ jobs:
 
       - name: Checkout
         run: |
-          mkdir -p home/ubuntu/test
-          ls -p home/ubuntu/test
+          -p /var/www/ale-test/update.sh
