@@ -24,3 +24,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Send greeting
         run: echo "Hello ${{ inputs.name }}"
+
+      - name: Create
+        run: |
+          cd /home/ubuntu
+          touch testxc.txt
