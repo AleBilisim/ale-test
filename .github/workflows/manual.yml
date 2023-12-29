@@ -30,6 +30,7 @@ jobs:
 
       - name: Experiment
         run: |
+          cd
           cd /home/ubuntu
           pwd
           mkdir hello
