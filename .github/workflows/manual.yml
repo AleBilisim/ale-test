@@ -28,9 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Experiment
+      - name: Checkout
         run: |
-          cd
-          cd /home/ubuntu
-          pwd
-          mkdir hello
+          mkdir -p home/ubuntu/test && cp -R dist home/ubuntu/test
+          ls home/ubuntu/test
