@@ -1,27 +1,19 @@
-name: Run Update Test Script
-
-on:
-  workflow_dispatch:  # Manuel tetikleme
-  push:
-    branches:
-      - main  # veya kullanmak istediğiniz ana dal
-
+# This is a basic workflow that is manually triggered
+name: Manual workflow
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  run-update-test:
-    runs-on: ubuntu-latest
+  greet:
+    runs-on: self-hosted
 
     steps:
-      - - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: AKIAUP3XHP2A62VQBRUN
-            aws-secret-access-key: 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
-            aws-region: eu-central-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
+          aws-secret-access-key: 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
+          aws-region: eu-central-1
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Run Update Test Script
+      - name: Generate deployment package
         run: |
-          chmod +x /home/ubuntu/update-test.sh  # Betik dosyasına çalıştırma izni ver
-          /home/ubuntu/update-test.sh
+          cd /home/ubuntu
+          touch testx.txt
