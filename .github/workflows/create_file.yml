@@ -12,9 +12,7 @@ jobs:
           aws-access-key-id: AKIAUP3XHP2A5BNLTBHB
           aws-secret-access-key: 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
           aws-region: eu-central-1
-
-
-      - name: asdsadsad
-        uses: actions/checkout@v3
-      - run: cd /var/www/ale-test
-      - run: ls -la
+          script: |
+            cd ~/var/www/ale-test
+            git pull origin master
+            git status
