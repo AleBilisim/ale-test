@@ -22,7 +22,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
               if [ ! -d /var/www/ale-test ]; then 
                 sudo mkdir -p /var/www/ale-test &&
-                sudo git pull origin main
+                git clone https://serdardurbaris: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@github.com/AleBilisim/ale-test.git
               else
                 cd /var/www/ale-test &&
                 sudo git pull origin main
