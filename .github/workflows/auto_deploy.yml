@@ -1,4 +1,4 @@
-name: Deploy
+name: Auto Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   Deploy:
-    name: Deploy to EC2
+    name: Auto Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
