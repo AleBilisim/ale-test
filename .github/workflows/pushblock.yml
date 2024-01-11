@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Check if pusher is allowed
         run: |
-          if [[ ${{ github.actor }} != ${{ secrets.ACTOR }} ]]; then
+          if [[ ${{ github.actor }} != "${{ secrets.ACTOR }}" ]]; then
             echo "Push not allowed for this user."
             exit 1
           fi
